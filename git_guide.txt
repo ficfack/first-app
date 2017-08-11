@@ -1,0 +1,53 @@
+# This is sample
+# URL : https://gist.github.com/MasterHans/440a192902c427091053d578aa13fcec
+
+1. Make Home Directory for SShH keys.
+c://users/UserName/.SSH (for Windows 7)
+
+2. Generate SSH key by command:
+ssh-keygen -t rsa -C "user@mail.ru"
+# Creates a new ssh key, using the provided email as a label
+Generating public/private rsa key pair.
+
+It's created a pair of keys -  private and public in home dir .SSH
+C:\Users\SuvorovAG\.ssh\id_rsa
+C:\Users\SuvorovAG\.ssh\id_rsa.pub
+
+3. You must creat file with a name "config" in SSH Home dir
+touch ~/.ssh/config
+
+4. Put the strings bellow  to the config file by notepad for example
+Host github.com
+HostName github.com
+Port 22
+IdentityFile /c/users/username/.ssh/id_rsa
+
+6. Adding your SSH key to the ssh-agent
+Ensure ssh-agent is enabled:
+
+If you are using Git Bash, turn on ssh-agent:
+
+# start the ssh-agent in the background
+eval "$(ssh-agent -s)"
+Agent pid 59566
+
+7. Add your SSH key to the ssh-agent. If you used an existing SSH key rather than generating a new SSH key,
+you'll need to replace id_rsa in the command with the name of your existing private key file.
+
+$ ssh-add ~/.ssh/id_rsa
+
+8. And than you must copy to clipboard SSH link from your repository
+git@github.com:sample-username/sample-repo.git
+
+9. Clone your repository
+git clone git@github.com:sample-username/sample-repo.git
+
+10. Testing your SSH connection
+Open Git Bash.
+Enter the following:
+
+ssh -T git@github.com
+# Attempts to ssh to GitHub
+
+Hi username! You've successfully authenticated, but GitHub does not
+provide shell access.
