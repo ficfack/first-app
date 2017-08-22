@@ -48,4 +48,9 @@ Router.map(function () {
         path: '/admin/projects/:_id/edit',
         template: 'edit_projects'
     });
+
+    this.route('login', {
+        path: '/admin',
+        template: 'login'
+    });
 });
