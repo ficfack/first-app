@@ -1,6 +1,6 @@
 Router.configure({
     layoutTemplate: 'layout'
-})
+});
 
 Router.map(function () {
     this.route('home', {
@@ -60,22 +60,17 @@ Router.map(function () {
             }
             this.next();
         }
-    })
+    });
 
     this.route('list_projects', {
         path: '/admin/projects',
         template: 'list_projects',
-        onBeforeAction: function () {
-            if (!Meteor.userId() || Meteor.userId() == null) {
-                Router.go('/');
-            }
-            this.next();
-        }
-    })
-
-    this.route('add_projects', {
-        path: '/admin/projects/add',
-        template: 'add_projects',
+        data: function () {
+            templateData = {
+                projects: Projects.find()
+            };
+            return templateData;
+        },
         onBeforeAction: function () {
             if (!Meteor.userId() || Meteor.userId() == null) {
                 Router.go('/');
@@ -84,9 +79,20 @@ Router.map(function () {
         }
     });
 
-    this.route('edit_projects', {
+    this.route('add_project', {
+        path: '/admin/projects/add',
+        template: 'add_project',
+        onBeforeAction: function () {
+            if (!Meteor.userId() || Meteor.userId() == null) {
+                Router.go('/');
+            }
+            this.next();
+        }
+    });
+
+    this.route('edit_project', {
         path: '/admin/projects/:_id/edit',
-        template: 'edit_projects',
+        template: 'edit_project',
         onBeforeAction: function () {
             if (!Meteor.userId() || Meteor.userId() == null) {
                 Router.go('/');

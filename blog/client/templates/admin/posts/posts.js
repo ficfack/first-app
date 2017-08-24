@@ -40,7 +40,7 @@ Template.edit_post.events({
 });
 
 Template.list_posts.events({
-    'click .delete_post': function (event) {
+    'click .delete_post': function () {
         if(confirm("Are you sure?")){
             Posts.remove(this._id);
             FlashMessages.sendSuccess("Post Deleted");
