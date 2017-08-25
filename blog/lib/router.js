@@ -93,6 +93,10 @@ Router.map(function () {
     this.route('edit_project', {
         path: '/admin/projects/:_id/edit',
         template: 'edit_project',
+        data: function(){
+            var currentProject = this.params._id;
+            return Projects.findOne({_id: currentProject});
+        },
         onBeforeAction: function () {
             if (!Meteor.userId() || Meteor.userId() == null) {
                 Router.go('/');

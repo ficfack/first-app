@@ -17,7 +17,7 @@ Template.add_project.events({
            ProjectImages.insert(fsFile, function(err, result){
               if(!err){
                   var projectImage = '/cfs/files/ProjectImages/' + result._id;
-
+                  alert("projectImage : " + projectImage);
                   // Insert Project
                   Projects.insert({
                      name: name,
@@ -45,4 +45,56 @@ Template.add_project.events({
 
        return false;
    }
+});
+
+Template.edit_project.events({
+    'submit .edit_project_form': function (event) {
+        var name = event.target.name.value;
+        var type = event.target.type.value;
+        var client = event.target.client.value;
+        var description = event.target.description.value;
+        var projectDate = event.target.projectDate.value;
+
+        var file = $('#projectImage').get(0).files[0];
+
+        if(file){
+            fsFile = new FS.File(file);
+            ProjectImages.insert(fsFile, function(err, result){
+                if(!err) {
+                    var projectImage = '/cfs/files/ProjectImages/' + result._id;
+                    // Update Project
+                    Projects.update({
+                        _id:this._id
+                    },{
+                        $set:{
+                            name: name,
+                            description: description,
+                            type: type,
+                            client: client,
+                            projectDate: projectDate,
+                            prouductImage: productImage
+                        }
+                    });
+                }
+            });
+        }else{
+            // Update Project
+            Projects.update({
+                _id:this._id
+            },{
+                $set:{
+                    name: name,
+                    description: description,
+                    type: type,
+                    client: client,
+                    projectDate: projectDate
+                }
+            });
+        }
+
+        FlashMessages.sendSuccess('Project Updated');
+        Router.go('/admin/projects');
+
+        return false;
+    }
 });
