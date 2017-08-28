@@ -55,12 +55,14 @@ Template.edit_project.events({
         var projectDate = event.target.projectDate.value;
 
         var file = $('#projectImage').get(0).files[0];
-
+        alert(file);
         if(file){
             fsFile = new FS.File(file);
             ProjectImages.insert(fsFile, function(err, result){
                 if(!err) {
                     var projectImage = '/cfs/files/ProjectImages/' + result._id;
+                    //var currentImage = result._id;
+                    //alert("New Image : " + projectImage + " // Current Image" + );
                     // Update Project
                     Projects.update({
                         _id:this._id
