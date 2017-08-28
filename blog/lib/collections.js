@@ -7,7 +7,6 @@ Posts.attachSchema(new SimpleSchema({
     },
     body: {
         type: String,
-        max: 500
     },
     userId: {
         type: String,
@@ -31,8 +30,7 @@ Projects.attachSchema(new SimpleSchema({
         max: 100
     },
     description: {
-        type: String,
-        max: 500
+        type: String
     },
     client: {
         type: String,

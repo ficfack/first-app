@@ -5,16 +5,53 @@ Router.configure({
 Router.map(function () {
     this.route('home', {
         path: '/',
-        template: 'home'
+        template: 'home',
+        data: function () {
+            var currentProject = this.params._id;
+            return Projects.findOne({_id: currentProject});
+        }
     });
 
     this.route('about');
 
-    this.route('work');
+    this.route('work', {
+        path:'/work',
+        template:'work',
+        data: function () {
+            templateData = {
+                projects: Projects.find()
+            };
+            return templateData;
+        }
+    });
 
     this.route('blog', {
         path: '/blog',
-       template: 'blog'
+        template: 'blog',
+        data: function () {
+            templateData = {
+                posts: Posts.find()
+            };
+            return templateData;
+        }
+    });
+
+    this.route('blog_post',{
+        path:'/blog/post/:_id',
+        template:'blog_post',
+        data: function () {
+            var currentPost = this.params._id;
+            return Posts.findOne({_id: currentPost});
+        }
+    });
+
+    this.route('project',{
+        path:'/project/:_id',
+        template:'project',
+        data: function () {
+            var currentProject = this.params._id;
+            return Projects.findOne({_id: currentProject});
+        }
     });
 
     this.route('contact');
@@ -109,4 +146,4 @@ Router.map(function () {
         path: '/admin',
         template: 'login'
     });
-});
+}) ;

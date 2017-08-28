@@ -17,7 +17,6 @@ Template.add_project.events({
            ProjectImages.insert(fsFile, function(err, result){
               if(!err){
                   var projectImage = '/cfs/files/ProjectImages/' + result._id;
-                  alert("projectImage : " + projectImage);
                   // Insert Project
                   Projects.insert({
                      name: name,
@@ -72,7 +71,7 @@ Template.edit_project.events({
                             type: type,
                             client: client,
                             projectDate: projectDate,
-                            prouductImage: productImage
+                            projectImage: projectImage
                         }
                     });
                 }
@@ -96,5 +95,16 @@ Template.edit_project.events({
         Router.go('/admin/projects');
 
         return false;
+    }
+});
+
+Template.list_projects.events({
+    'click .delete_project': function () {
+        if(confirm("Are you sure?")){
+            Projects.remove(this._id);
+            FlashMessages.sendSuccess("Project Deleted");
+            // Prevent Submit
+            return false;
+        }
     }
 });

@@ -1,3 +1,9 @@
+Template.work.helpers({
+    projects: function () {
+        return Projects.find();
+    }
+});
+
 Template.login.events({
     'submit .login-user': function (event) {
         var username = event.target.username.value;
@@ -40,4 +46,20 @@ Template.layout.events({
 
 Template.registerHelper('formatDate', function (date) {
     return moment(date).format('MMMM Do YYYY, h:mm:ss a')
+});
+
+Template.registerHelper('getSiteTitle', function () {
+    return 'CodeFolio';
+});
+
+Template.registerHelper('getAdminName', function () {
+    return 'John Doe';
+});
+
+Template.registerHelper('getAdminImage', function () {
+    return '/assets/img/user.png';
+});
+
+Template.registerHelper('ImageWidthS', function () {
+   return '400px';
 });
